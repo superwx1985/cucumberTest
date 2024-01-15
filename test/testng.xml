@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="futureloan">
+    <test name="登录测试">
+        <classes>
+            <class name="vic.test.runner.ApiRunner"></class>
+            <class name="vic.test.runner.UiRunner"></class>
+        </classes>
+    </test>
+</suite>
