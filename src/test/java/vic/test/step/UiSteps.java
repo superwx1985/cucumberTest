@@ -54,12 +54,12 @@ public class UiSteps {
 
     @Given("I open the browser")
     public void iOpenTheBrowser() {
-        System.setProperty("webdriver.chrome.driver", "E:\\code\\selenium driver\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "E:\\code\\selenium driver\\chromedriver.exe"); //指定driver位置
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("--remote-allow-origins=*");
-        options.setBinary("E:\\code\\selenium driver\\chrome-win64\\chrome.exe");
+        options.addArguments("--remote-allow-origins=*"); //允许selenium远程控制浏览器
+        options.setBinary("E:\\code\\selenium driver\\chrome-win64\\chrome.exe"); //指定chrome位置
         driver = new ChromeDriver(options);
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5)); //设置隐式等待时间
     }
 
     @Then("I close the browser")
@@ -73,4 +73,5 @@ public class UiSteps {
         driver.findElement(By.id("su")).click();
 //        Thread.sleep(2000);
     }
+
 }
