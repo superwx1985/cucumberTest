@@ -9,13 +9,28 @@ Feature: test the add function
     Then I should get the result of a + b = 8
     Then show aaa asdada end
 
-  Scenario: I can get the correct result from json api
+
+  Example: I can get the correct result from json api
     When I call the json api
     Then I can see the max value in the number of winnerId:23 is 45
     And I can see the max value in the number of winnerId:54 is 52
+    And I can see the max value of winnerId
+      |winnerId|max|
+      |23      |45 |
+      |54      |52 |
 
 
-  Scenario: I can get the correct result from json api
+  Scenario Outline: : I can get the correct result from json api (outline)
+    When I call the json api
+    Then I can see the max value in the number of winnerId:<winnerId> is <max>
+
+    Examples:
+      |winnerId|max|
+      |23      |45 |
+      |54      |52 |
+
+
+  Scenario: I can get the correct result from xpath api
     When I call the xpath api
     Then I can see the quantity of "Pens" in "supplies" category is 4
     And I can see the quantity of "Pens" in "supplies2" category is 222

@@ -7,6 +7,9 @@ import io.restassured.response.ResponseBody;
 import io.restassured.response.ValidatableResponse;
 import org.hamcrest.core.StringContains;
 
+import java.util.List;
+import java.util.Map;
+
 import static io.restassured.RestAssured.*;
 import static io.restassured.matcher.RestAssuredMatchers.*;
 import static org.hamcrest.Matchers.*;
@@ -64,11 +67,12 @@ public class ApiSteps {
         res = given()
                 .when()
                 .get("http://127.0.0.1:8080/api/json");
+
     }
 
     @Then("I can see the max value in the number of winnerId:{int} is {int}")
     public void iCanSeeTheMaxValueInTheNumberOfWinnerIdIs(int arg0, int arg1) {
-        res.then()
+        res.then().log().all()
                 .assertThat()
                 .statusCode(200)
                 .header("Content-Type", new StringContains("application/json"))
@@ -84,7 +88,7 @@ public class ApiSteps {
 
     @Then("I can see the quantity of {string} in {string} category is {int}")
     public void iCanSeeTheQuantityOfInCategoryIs(String arg0, String arg1, Integer arg2) {
-        res.then()
+        res.then().log().all()
                 .assertThat()
                 .statusCode(200)
                 .header("Content-Type", new StringContains("application/xml"))
@@ -93,7 +97,7 @@ public class ApiSteps {
 
     @And("I can see {string} is {string}")
     public void iCanSeeIs(String arg0, String arg1) {
-        res.then()
+        res.then().log().all()
                 .assertThat()
                 .body(String.format("**.find { it.@when == '%s'}", arg0), equalTo(arg1));
     }
@@ -101,8 +105,17 @@ public class ApiSteps {
     @And("I can see {string} has {string}")
     public void iCanSeeHas(String arg0, String arg1) {
         String[] items = arg1.split("\\|");
-        res.then()
+        res.then().log().all()
                 .assertThat()
                 .body(String.format("*.category.find { it.@type == '%s'}", arg0), hasItems(items));
+    }
+
+    @And("I can see the max value of winnerId")
+    public void iCanSeeTheMaxValueOfWinnerId(List<Map<String, String>> list)  {
+        System.out.println(list);
+        for (Map<String, String> map: list) {
+            System.out.println(map);
+            iCanSeeTheMaxValueInTheNumberOfWinnerIdIs(Integer.parseInt(map.get("winnerId")), Integer.parseInt(map.get("max")));
+        }
     }
 }
