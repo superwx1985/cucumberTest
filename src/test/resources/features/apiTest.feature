@@ -18,6 +18,7 @@ Feature: test the add function
       |winnerId|max|
       |23      |45 |
       |54      |52 |
+    And I can see the except result in response body
 
 
   Scenario Outline: : I can get the correct result from json api (outline)
